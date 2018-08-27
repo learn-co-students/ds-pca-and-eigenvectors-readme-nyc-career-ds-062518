@@ -1,32 +1,34 @@
 
-# Principal Component Analysis: lecture
+# Principal Component Analysis, Eigenvectors, & Eigenvalues: lecture
 
 ## 1. Introduction
 
-Up until now, We have focused on supervised learning. This group of methods aims at predicting labels based on training data that is labeled as well. Principal Componant Analysis is our first so-called "unsupervised" estimator. Generally, the aim of unsupervised estimators is to reveal interesting data patterns without having any reference labels.
+Up until now, We have focused on supervised learning. This group of methods aims at predicting labels based on training data that is labeled as well. Principal Component Analysis is our first so-called "unsupervised" estimator. Generally, the aim of unsupervised estimators is to reveal interesting data patterns without having any reference labels.
 
-The first unsupervised learning algorithm, is Principal Component Analysis, also referred to as PCA. PCA is a dimensionality reduction technique which is often used in practice for visualization, feature extraction, noise filtering, etc. 
+The first unsupervised learning algorithm is Principal Component Analysis, also referred to as PCA. PCA is a dimensionality reduction technique which is often used in practice for visualization, feature extraction, noise filtering, etc.
 
 Generally, PCA would be applied on data sets with many variables. PCA creates new variables that are linear combinations of the original variables. The idea is to reduce the dimension of the data considerably while maintaining as much information as possible. While the purpose is to significantly reduce the dimensionality, the maximum amount of new variables that can possibly be created is equal to the number of original variables. A nice feature of PCA is that the newly created variables are uncorrelated.
 
-**A simple example start** : Imagine that a data set consists of the height and weight of a group of people. One could imagine that these 2 metrics are heavily correlated, so we could basically summarize these 2 metrics in one variable, a linear combination of the two. This one variable will contain most of the information from 2 variables in one. It is important to note that the effectiveness of PCA strongly depends on the structure of the correlation matrix of the existing variables!
+**A simple example** : Imagine that a data set consists of the height and weight of a group of people. One could imagine that these 2 metrics are heavily correlated, so we could basically summarize these 2 metrics in one variable, a linear combination of the two. This one variable will contain most of the information from 2 variables in one. It is important to note that the effectiveness of PCA strongly depends on the structure of the correlation matrix of the existing variables!
 
-## 2. Intermezzo: Eigenvalues and eigenvectors
+## 2. A Brief Aside: Eigenvalues and Eigenvectors
+
+In order to understand how PCA actually works, we first need to be comfortable with **_Eigenvectors_** and **_Eigenvalues_**.
 
 An eigenvector is a vector that after transformation hasn't changed, except by a scalar value known as the *eigenvalue*.
 
 ### 2.1 Definition
 
-If there exists a square matrix $A$ (an n x n matrix) , then a scalar $\lambda$ is called the **eigenvalue** of $A$ if there is a non-zero vector $v$ such that 
+If there exists a square matrix $A$ (an n x n matrix) , then a scalar $\lambda$ is called the **eigenvalue** of $A$ if there is a non-zero vector $v$ such that
 
 $$Av = \lambda v$$.
 
-This vector $v$ is thene called the **eigenvector** of A corresponding to $\lambda$.
+This vector $v$ is then called the **eigenvector** of A corresponding to $\lambda$.
 
 Eigenvalues and eigenvectors are very useful and have tons of applications!
 
 
-Imagine you have a matrix 
+Imagine you have a matrix
 
 \begin{equation}
 A = \begin{bmatrix}
@@ -35,7 +37,7 @@ A = \begin{bmatrix}
 \end{bmatrix}
 \end{equation}
 
-We have an eigenvector 
+We have an eigenvector
 \begin{equation}
 v = \begin{bmatrix}
     2 \\
@@ -49,7 +51,7 @@ Let's perform the multiplication $A v$
 Av  = \begin{bmatrix}
    3 & 2 \\
    3 & -2
-\end{bmatrix} 
+\end{bmatrix}
 \begin{bmatrix}
     2 \\
     1
@@ -64,7 +66,7 @@ Av  = \begin{bmatrix}
 \end{equation}
 
 
-Now we want to see if we can find a $\lambda$ such that 
+Now we want to see if we can find a $\lambda$ such that
 
 
 \begin{equation}
@@ -268,7 +270,7 @@ Note that for  $j=1,\ldots,p$ and $c_j = (c_{j1}, c_{j2}, \ldots, c_{jp})$' is a
 The variance of $PC$ is then:
 $var(PC_j) = var( c_{j1} X_1+c_{j2} X_2+\ldots+c_{jp} X_p) \\
   = c_{j1}^2 var(X_1) +c_{j2}^2 var(X_2) + \ldots + c_{jp}^2 var(X_p) + 2 \displaystyle\sum_k\sum_{l \neq k}c_{jk}c_{jl} cov(X_k,  X_l) \\  = c_j' \Sigma c_j$
-  
+
 In words, this means that variances can easily be computed using the coefficients used while making the linear combinations.
 
 We can prove that  $var(PC_1)\geq var(PC_2) \geq \ldots \geq var(PC_p)$ is actually given by the eigenvalues $\lambda_1\geq \lambda_2 \geq \ldots \geq \lambda_3$ and the eigenvectors are given by  $c_j = (c_{j1}, c_{j2}, \ldots, c_{jp})$. From here on, we'll denote the eigenvectors by $e_j$ instead of $c_j$.
